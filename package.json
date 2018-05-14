@@ -1,11 +1,17 @@
 {
-  "name": "githook-rest",
+  "name": "restify-webhook",
   "version": "1.0.0",
   "description": "A REST API solution for common githook and simple automaticle work",
   "main": "index.js",
   "author": "Nooldey <nooldey@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "pm2": "pm2 start -l ./log/pm2.log -o ./log/out.log -e ./log/error.log index.js --name 'webhooks'",
+    "stop": "pm2 stop 'webhooks'"
+  },
   "dependencies": {
+    "pm2": "^2.10.3",
     "restify": "^7.1.1",
     "restify-errors": "^6.0.0",
     "yamljs": "^0.3.0"

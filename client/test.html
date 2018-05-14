@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/2.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <button id="get">GET</button>
+        <p class="get_res"></p>
+    </div>
+    <!-- scripts -->
+    <script>
+        window.onload = function () {
+            const getbtn = document.body.querySelector('#get'),
+                getres = document.body.querySelector('.get_res');
+            getbtn.onclick = function () {
+                /* 发起get请求 */
+                $.ajax({
+                    url: "http://192.168.31.33:2333/webhook/",
+                    type: 'post',
+                    success: function (res) {
+                        console.log('success', res);
+                        getres.innerHTML = JSON.stringify(res)
+                    },
+                    error: function (err) {
+                        alert(JSON.stringify(err))
+                    }
+                })
+            }
+        }
+    </script>
+</body>
+
+</html>
