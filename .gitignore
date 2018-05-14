@@ -1,5 +1,5 @@
 # Logs
-/log/*
+/log
 logs
 *.log
 npm-debug.log*
@@ -57,4 +57,3 @@ typings/
 
 # dotenv environment variables file
 .env
-
