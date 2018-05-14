@@ -7,8 +7,9 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
-    "pm2": "pm2 start -l ./log/pm2.log -o ./log/out.log -e ./log/error.log index.js --name 'webhooks'",
-    "stop": "pm2 stop 'webhooks'"
+    "go": "yarn clear && pm2 start -l ./log/pm2.log -e ./log/error.log index.js --name 'webhooks'",
+    "stop": "pm2 stop 'webhooks'",
+    "clear": "pm2 flush"
   },
   "dependencies": {
     "pm2": "^2.10.3",
