@@ -1,9 +1,10 @@
- /* 
+
+/* 
  * @Author: nooldey 
  * @Author-Email: <nooldey@gmail.com>
  * @Date: 2018-05-14 08:54:43 
  * @Last Modified by: nooldey
- * @Last Modified time: 2018-05-14 15:24:18
+ * @Last Modified time: 2018-05-15 08:27:39
  * @Description: webhook主文件
  */
 
@@ -33,14 +34,14 @@ const API = () => {
     server.use(restify.plugins.acceptParser(server.acceptable))
     server.use(restify.plugins.queryParser())
     server.use(restify.plugins.bodyParser())
-    server.use(restify.plugins.gzipResponse())
+    // server.use(restify.plugins.gzipResponse())
 
     /* routers */
     server.post('/webhook/', (req, res, next) => {
         console.log('\n////////////////// ' + Date.now() + ' /////////');
-        console.log(req);
         res.send({
-            code: 1000
+            code: 1000,
+            data: 123
         })
     })
 
