@@ -7,12 +7,11 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
-    "go": "yarn clear && pm2 start -l ./log/pm2.log -e ./log/error.log index.js --name 'webhooks'",
-    "stop": "pm2 stop 'webhooks'",
-    "clear": "pm2 flush"
+    "dev": "pm2 startOrRestart ecosystem.config.js --env dev",
+    "stop": "pm2 stop ecosystem.config.js",
+    "pop": "pm2 delete ecosystem.config.js"
   },
   "dependencies": {
-    "pm2": "^2.10.3",
     "restify": "^7.1.1",
     "restify-errors": "^6.0.0",
     "yamljs": "^0.3.0"

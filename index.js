@@ -4,7 +4,7 @@
  * @Author-Email: <nooldey@gmail.com>
  * @Date: 2018-05-14 08:54:43 
  * @Last Modified by: nooldey
- * @Last Modified time: 2018-05-15 08:27:39
+ * @Last Modified time: 2018-05-16 09:31:48
  * @Description: webhook主文件
  */
 
@@ -13,6 +13,7 @@ const fs = require('fs')
 const YAML = require('yamljs')
 const PATH = require('path')
 const config = YAML.parse(fs.readFileSync(PATH.resolve(__dirname, './config.yml')).toString())
+const Modules = require('./modules')
 
 /* custom handlers */
 function crossOrigin(req, res, next) {
@@ -38,10 +39,14 @@ const API = () => {
 
     /* routers */
     server.post('/webhook/', (req, res, next) => {
-        console.log('\n////////////////// ' + Date.now() + ' /////////');
+        const agent = req.headers['user-agent'];
+        if (/bitbucket/i.test(agent)) {
+            /* 来自bitbucket */
+            Modules.bitbucket(req, next)
+        }
         res.send({
             code: 1000,
-            data: 123
+            data: ok
         })
     })
 
