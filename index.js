@@ -4,7 +4,7 @@
  * @Author-Email: <nooldey@gmail.com>
  * @Date: 2018-05-14 08:54:43 
  * @Last Modified by: nooldey
- * @Last Modified time: 2018-05-18 17:23:18
+ * @Last Modified time: 2018-05-18 17:51:38
  * @Description: webhook主文件
  */
 
@@ -46,7 +46,7 @@ const API = () => {
         }
         res.send({
             code: 1000,
-            data: ok
+            data: 'ok'
         })
     })
 

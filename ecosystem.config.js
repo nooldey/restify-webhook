@@ -11,11 +11,14 @@ module.exports = {
       max_memory_restart: '300M',
       script            : './index.js',
       watch             : true,
-      ignore_watch      : ['node_modules','log','github','client'],
+      ignore_watch      : ['node_modules','package.json','yarn.lock','log','github','client'],
+      log_file          : "./log/combined.log",
       out_file          : './log/out.log',
       error_file        : './log/error.log',
-      instances         : 4,
-      exec_mode         : 'cluster',
+      merge_logs        : true,
+      log_date_format   : "YYYY-MM-DD HH:mm Z",
+      instances         : 1,
+      exec_mode         : 'fork',
       env               : {
         COMMON_VARIABLE: 'true'
       },

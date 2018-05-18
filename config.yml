@@ -8,3 +8,4 @@ port: 2333
 ## 跨域白名单
 access:
   - zhuweisheng.com.cn
+  - api.zhuweisheng.com.cn

@@ -1,4 +1,4 @@
-import bitbucket from './bitbucket';
-export default {
+const bitbucket = require('./bitbucket');
+module.exports = {
     bitbucket
 }
