@@ -14,7 +14,7 @@ module.exports = {
       ignore_watch      : ['node_modules','log','github','client'],
       out_file          : './log/out.log',
       error_file        : './log/error.log',
-      instances         : 1,
+      instances         : 4,
       exec_mode         : 'cluster',
       env               : {
         COMMON_VARIABLE: 'true'
