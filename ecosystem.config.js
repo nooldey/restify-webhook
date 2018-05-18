@@ -12,7 +12,6 @@ module.exports = {
       script            : './index.js',
       watch             : true,
       ignore_watch      : ['node_modules','package.json','yarn.lock','log','github','client'],
-      log_file          : "./log/combined.log",
       out_file          : './log/out.log',
       error_file        : './log/error.log',
       merge_logs        : true,
