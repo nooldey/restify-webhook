@@ -4,7 +4,7 @@
  * @Author-Email: <nooldey@gmail.com>
  * @Date: 2018-05-14 08:54:43 
  * @Last Modified by: nooldey
- * @Last Modified time: 2018-05-30 16:50:37
+ * @Last Modified time: 2018-05-30 17:26:36
  * @Description: webhook主文件
  */
 
@@ -42,12 +42,15 @@ const API = () => {
         const agent = req.headers['user-agent'];
         if (/bitbucket/i.test(agent)) {
             /* 来自bitbucket */
-            Modules.bitbucket(req, res, next)
+            const data = Modules.bitbucket(req)
+            res.send(data)
         }
-        // res.send({
-        //     code: 1000,
-        //     data: ''
-        // })
+        else {
+            res.send({
+                code: 1000,
+                data: ''
+            })
+        }
     })
 
     /* start server */

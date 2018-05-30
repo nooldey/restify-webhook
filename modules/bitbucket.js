@@ -1,8 +1,7 @@
-module.exports = (req, res, next) => {
+module.exports = (req) => {
     console.log(req);
-    res.send({
+    return {
         code: 111,
-        data: {}
-    })
-    return next()
+        data: 'abc'
+    }
 }
