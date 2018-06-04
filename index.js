@@ -42,14 +42,11 @@ const API = () => {
         const agent = req.headers['user-agent'];
         if (/bitbucket/i.test(agent)) {
             /* 来自bitbucket */
-            const data = Modules.bitbucket(req)
-            res.send(data)
+            Modules.bitbucket(req, res, next)
         }
         else {
-            res.send({
-                code: 1000,
-                data: ''
-            })
+            res.writeHead(404)
+            res.end('Not Found')
         }
     })
 
