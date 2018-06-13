@@ -9,8 +9,6 @@ module.exports = (req, res, next) => {
     const isPush = req.headers['x-event-key'] == 'repo:push';
     const repo = req.body.repository.name;
     const command = COMMANDS[repo];
-    console.log(command);
-    return;
     if (isPush && repo && command) {
         /* 执行自动构建 */
         let commands = command.join(' && ');
