@@ -1,0 +1,21 @@
+# @Author: nooldey 
+# @Author-Email: <nooldey@gmail.com> 
+# @Date: 2018-06-13 17:39:14 
+# @Last Modified by:   nooldey 
+# @Last Modified time: 2018-06-13 17:39:14 
+# @Description: 设置所有仓库更新hook通知后服务器的运行任务
+# @Format: <仓库名>：
+#                - <执行指令>
+
+# 各个仓库及其运行指令
+blog: 
+  - cd /home/nooldey/blog/
+  - git pull
+  - npm i hexo-cli -g
+  - npm i gulp -g
+  - npm i
+  - hexo clean
+  - hexo generate
+  - gulp
+  - rm -rf /usr/share/nginx/html/blog/*
+  - cp -rf /home/nooldey/blog/public/* /usr/share/nginx/html/blog/

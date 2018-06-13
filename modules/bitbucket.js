@@ -1,21 +1,19 @@
+const fs = require('fs')
+const PATH = require('path')
+const YAML = require('yamljs')
+const COMMANDS = YAML.parse(fs.readFileSync(PATH.resolve(__dirname, '../commands/bitbucket.yml')).toString())
 const exec = require('child_process').exec;
 
 module.exports = (req, res, next) => {
-    if (req.headers['x-event-key'] == 'repo:push') {
+    /* 判断是否需要运行仓库对应的指令 */
+    const isPush = req.headers['x-event-key'] == 'repo:push';
+    const repo = req.body.repository.name;
+    const command = COMMANDS[repo];
+    console.log(command);
+    return;
+    if (isPush && repo && command) {
         /* 执行自动构建 */
-        let commands = [
-            'cd /home/nooldey/blog/',
-            'git pull',
-            'npm i hexo-cli -g',
-            'npm i gulp -g',
-            'npm i',
-            'hexo clean',
-            'hexo generate',
-            'gulp',
-            'rm -rf /usr/share/nginx/html/blog/*',
-            'cp -rf /home/nooldey/blog/public/* /usr/share/nginx/html/blog/',
-            // 'hexo deploy'
-        ].join(' && ');
+        let commands = command.join(' && ');
         /* 验证是否已经更新抓取过最新的仓库了 */
         exec(commands, (err, out, code) => {
             if (err instanceof Error) {
