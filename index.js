@@ -4,7 +4,7 @@
  * @Author-Email: <nooldey@gmail.com>
  * @Date: 2018-05-14 08:54:43 
  * @Last Modified by: nooldey
- * @Last Modified time: 2018-06-13 18:15:33
+ * @Last Modified time: 2018-06-29 11:11:07
  * @Description: webhook主文件
  */
 
@@ -48,6 +48,14 @@ const API = () => {
             res.writeHead(404)
             res.end('Not Found')
         }
+    })
+
+    server.get('/tongji.png', (req, res, next) => {
+        /* 访问统计 */
+        console.log(req)
+        res.writeHead(200)
+        res.end('Finished Tongji')
+        next()
     })
 
     /* start server */
