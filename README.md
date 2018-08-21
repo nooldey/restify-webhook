@@ -19,6 +19,6 @@ edit or add file under folder `modules`
 + sponse me by alipay or wechatpay ?
 
 ### sponse
-![支付宝红包](./github/honbao.png)
+![支付宝红包](./github/hongbao.png)
 ![支付宝](./github/alipay.png)
-![微信](./github/wepay.png)
+![微信](./github/wepay.jpg)
