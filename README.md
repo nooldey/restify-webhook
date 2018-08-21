@@ -16,7 +16,9 @@ edit or add file under folder `modules`
 ## If this project helps?
 
 + just star the repository and let more people to complete the project.
-+ sponsor me by alipay or wechatpay ?
++ sponse me by alipay or wechatpay ?
 
+### sponse
+![支付宝红包](./github/honbao.png)
 ![支付宝](./github/alipay.png)
 ![微信](./github/wepay.png)
