@@ -6,6 +6,7 @@
   "author": "Nooldey <nooldey@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "build": "yarn add -g pm2 && yarn",
     "dev": "node index.js --watch",
     "start": "pm2 startOrRestart ecosystem.config.js",
     "stop": "pm2 stop ecosystem.config.js",
