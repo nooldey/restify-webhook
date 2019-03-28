@@ -3,7 +3,7 @@
  * @Author-Email: <nooldey@gmail.com>
  * @Date: 2018-05-14 08:54:43 
  * @Last Modified by: nooldey
- * @Last Modified time: 2019-03-28 17:51:04
+ * @Last Modified time: 2019-03-28 18:05:07
  * @Description: webhook主文件
  */
 
@@ -23,7 +23,7 @@ function crossOrigin(req, res, next) {
 }
 
 /* API Main */
-const API = () => {
+(function API() {
   const server = restify.createServer({
     name: config.serverName
   })
@@ -38,7 +38,7 @@ const API = () => {
   server.use(restify.plugins.gzipResponse())
 
   /* routers */
-  server.post('/webhook/', Modules.bitbucket);
+  server.post('/webhook/bitbucket', Modules.bitbucket);
 
   server.post('/webhook/yuque', Modules.yuque);
 
@@ -78,9 +78,7 @@ const API = () => {
   /*
    * for heroku 
    */
-  server.listen(process.env.PORT, () => {
+  server.listen(process.env.PORT, function() {
     console.log('%s listening at %s', server.name, server.url)
   })
-}
-
-API()
+})()

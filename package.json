@@ -6,14 +6,13 @@
   "author": "Nooldey <nooldey@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build2": "npm install -g pm2 && npm install",
-    "dev": "node index.js --watch",
-    "start": "pm2 startOrRestart ecosystem.config.js",
-    "stop": "pm2 stop ecosystem.config.js",
-    "pop": "pm2 delete ecosystem.config.js"
+    "start": "node index.js > ./log/req.log --watch"
+  },
+  "engines": {
+    "node": "10.x"
   },
   "dependencies": {
-    "restify": "^7.1.1",
+    "restify": "^8.1.1",
     "restify-errors": "^6.0.0",
     "yamljs": "^0.3.0"
   },
