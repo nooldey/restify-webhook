@@ -17,4 +17,4 @@ just edit the `config.yml` file under the root path of the project
 ## If this project helps?
 
 + just star the repository and let more people to complete the project.
-+ just buy me a cup of coffee [here](http://zan.zhuweisheng.com.cn)?
++ just buy me a cup of coffee [here](http://zhuweisheng.com.cn/sponsor/)?
