@@ -1,1 +1,1 @@
-web: pm2 startOrRestart ecosystem.config.js
+web: node index.js
