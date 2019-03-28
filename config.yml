@@ -9,3 +9,5 @@ port: 2333
 access:
   - zhuweisheng.com.cn
   - api.zhuweisheng.com.cn
+  - 127.0.0.1
+  - localhost

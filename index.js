@@ -1,10 +1,9 @@
-
 /* 
  * @Author: nooldey 
  * @Author-Email: <nooldey@gmail.com>
  * @Date: 2018-05-14 08:54:43 
  * @Last Modified by: nooldey
- * @Last Modified time: 2018-06-29 11:11:07
+ * @Last Modified time: 2019-03-28 17:41:42
  * @Description: webhook主文件
  */
 
@@ -17,51 +16,65 @@ const Modules = require('./modules')
 
 /* custom handlers */
 function crossOrigin(req, res, next) {
-    res.setHeader("Access-Control-Allow-Origin","*")
-    res.setHeader("Access-Control-Allow-Headers", "X-Requested-With")
-    return next()
+  console.log(req);
+  res.setHeader("Access-Control-Allow-Origin", "*")
+  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With")
+  return next()
 }
 
 /* API Main */
 const API = () => {
-    const server = restify.createServer({
-        name: config.serverName
-    })
+  const server = restify.createServer({
+    name: config.serverName
+  })
 
-    /* handlers */
-    server.pre(crossOrigin)
+  /* handlers */
+  server.pre(crossOrigin)
 
-    /* plugins */
-    server.use(restify.plugins.acceptParser(server.acceptable))
-    server.use(restify.plugins.queryParser())
-    server.use(restify.plugins.bodyParser())
-    server.use(restify.plugins.gzipResponse())
+  /* plugins */
+  server.use(restify.plugins.acceptParser(server.acceptable))
+  server.use(restify.plugins.queryParser())
+  server.use(restify.plugins.bodyParser())
+  server.use(restify.plugins.gzipResponse())
 
-    /* routers */
-    server.post('/webhook/', (req, res, next) => {
-        const agent = req.headers['user-agent'];
-        if (/bitbucket\-webhooks/i.test(agent)) {
-            /* 来自bitbucket */
-            Modules.bitbucket(req, res, next)
-        }
-        else {
-            res.writeHead(404)
-            res.end('Not Found')
-        }
-    })
+  /* routers */
+  server.post('/webhook/', Modules.bitbucket);
 
-    server.get('/tongji.png', (req, res, next) => {
-        /* 访问统计 */
-        console.log(req)
-        res.writeHead(200)
-        res.end('Finished Tongji')
-        next()
-    })
+  server.post('/webhook/yuque', Modules.yuque);
 
-    /* start server */
-    server.listen(config.port, config.local, () => {
-        console.log('%s listening at %s', server.name, server.url)
-    })
+  server.get('/log', function (req, res, next) {
+    fs.readFile(path.resolve(__dirname + '/log/req.log'), function (err, data) {
+      if (err) {
+        res.writeHead(500);
+        res.end(JSON.stringify(err));
+        next();
+        return;
+      } else {
+        res.writeHead(200);
+        res.end(data);
+        next();
+      }
+    });
+  })
+
+  server.get('/tongji.png', (req, res, next) => {
+    /* 访问统计 */
+    console.log(req)
+    res.writeHead(200)
+    res.end('Finished Tongji')
+    next()
+  })
+
+  server.get('/', function (req, res, next) {
+    res.writeHead(200)
+    res.end('OK')
+    next();
+  });
+
+  /* start server */
+  server.listen(config.port || process.env.PORT, config.local, () => {
+    console.log('%s listening at %s', server.name, server.url)
+  })
 }
 
 API()

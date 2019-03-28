@@ -8,10 +8,10 @@ module.exports = {
     // First application
     {
       name              : 'webhooks',
-      max_memory_restart: '300M',
+      max_memory_restart: '512M',
       script            : './index.js',
       watch             : true,
-      ignore_watch      : ['node_modules','package.json','yarn.lock','log','github','client'],
+      ignore_watch      : ['node_modules','package.json','package-lock.json','yarn.lock','log'],
       out_file          : './log/out.log',
       error_file        : './log/error.log',
       merge_logs        : true,

@@ -1,10 +1,25 @@
+/*
+ * @Author: nooldey <nooldey@gmail.com> 
+ * @Date: 2019-03-28 17:32:17 
+ * @Last Modified by: nooldey
+ * @Last Modified time: 2019-03-28 17:39:50
+ * @description: 接受bitbucket推送并拉去bitbucket代码进行指定命令构建
+ */
+
 const fs = require('fs')
 const PATH = require('path')
 const YAML = require('yamljs')
-const COMMANDS = YAML.parse(fs.readFileSync(PATH.resolve(__dirname, '../commands/bitbucket.yml')).toString())
+const COMMANDS = YAML.parse(fs.readFileSync(PATH.resolve(__dirname, './bitbucket.yml')).toString())
 const exec = require('child_process').exec;
 
 module.exports = (req, res, next) => {
+  const agent = req.headers['user-agent'];
+  if (!/bitbucket\-webhooks/i.test(agent)) {
+    res.writeHead(404);
+    res.end('Not Found');
+    next();
+    return;
+  }
   /* 判断是否需要运行仓库对应的指令 */
   const isPush = req.headers['x-event-key'] == 'repo:push';
   const repo = req.body.repository.name;
