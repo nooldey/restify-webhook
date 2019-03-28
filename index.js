@@ -3,7 +3,7 @@
  * @Author-Email: <nooldey@gmail.com>
  * @Date: 2018-05-14 08:54:43 
  * @Last Modified by: nooldey
- * @Last Modified time: 2019-03-28 17:41:42
+ * @Last Modified time: 2019-03-28 17:51:04
  * @Description: webhook主文件
  */
 
@@ -72,7 +72,13 @@ const API = () => {
   });
 
   /* start server */
-  server.listen(config.port || process.env.PORT, config.local, () => {
+  // server.listen(config.port || process.env.PORT, config.local, () => {
+  //   console.log('%s listening at %s', server.name, server.url)
+  // })
+  /*
+   * for heroku 
+   */
+  server.listen(process.env.PORT, () => {
     console.log('%s listening at %s', server.name, server.url)
   })
 }
