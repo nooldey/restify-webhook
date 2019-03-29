@@ -3,7 +3,7 @@
  * @Author-Email: <nooldey@gmail.com>
  * @Date: 2018-05-14 08:54:43 
  * @Last Modified by: nooldey
- * @Last Modified time: 2019-03-29 14:58:12
+ * @Last Modified time: 2019-03-29 15:18:53
  * @Description: webhook主文件
  */
 
@@ -16,7 +16,6 @@ const Modules = require('./modules')
 
 /* custom handlers */
 function crossOrigin(req, res, next) {
-  console.log(req);
   res.setHeader("Access-Control-Allow-Origin", "*")
   res.setHeader("Access-Control-Allow-Headers", "X-Requested-With")
   return next()
@@ -42,17 +41,14 @@ function crossOrigin(req, res, next) {
 
   server.post('/webhook/yuque', Modules.yuque);
 
-  server.get('/log', function(req, res, next){
-    fs.readFile(PATH.resolve(__dirname + './log/req.log'), function (err, data) {
+  server.get('/log', function (req, res, next) {
+    fs.readFile(PATH.resolve(__dirname + '/log/req.log'), 'utf8', function (err, data) {
       if (err) {
         res.writeHead(500);
         res.end(JSON.stringify(err));
-        next();
-        return;
       } else {
         res.writeHead(200);
         res.end(data);
-        next();
       }
     });
   });
