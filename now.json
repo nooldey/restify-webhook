@@ -5,12 +5,14 @@
   "builds": [{
     "src": "index.js",
     "use": "@now/node-server"
+  }, {
+    "src": "log/*.log",
+    "use": "@now/static"
   }],
   "routes": [{
-      "src": "/(.*)",
-      "dest": "index.js"
-    }
-  ],
+    "src": "/(.*)",
+    "dest": "index.js"
+  }],
   "regions": [
     "hnd",
     "bru"
