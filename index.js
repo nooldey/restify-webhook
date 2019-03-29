@@ -3,7 +3,7 @@
  * @Author-Email: <nooldey@gmail.com>
  * @Date: 2018-05-14 08:54:43 
  * @Last Modified by: nooldey
- * @Last Modified time: 2019-03-28 18:05:07
+ * @Last Modified time: 2019-03-29 14:09:53
  * @Description: webhook主文件
  */
 
@@ -42,28 +42,9 @@ function crossOrigin(req, res, next) {
 
   server.post('/webhook/yuque', Modules.yuque);
 
-  server.get('/log', function (req, res, next) {
-    fs.readFile(path.resolve(__dirname + '/log/req.log'), function (err, data) {
-      if (err) {
-        res.writeHead(500);
-        res.end(JSON.stringify(err));
-        next();
-        return;
-      } else {
-        res.writeHead(200);
-        res.end(data);
-        next();
-      }
-    });
-  })
+  server.get('/log', Modules.logs);
 
-  server.get('/tongji.png', (req, res, next) => {
-    /* 访问统计 */
-    console.log(req)
-    res.writeHead(200)
-    res.end('Finished Tongji')
-    next()
-  })
+  server.get('/tongji.png', Modules.tongji);
 
   server.get('/', function (req, res, next) {
     res.writeHead(200)
@@ -72,13 +53,7 @@ function crossOrigin(req, res, next) {
   });
 
   /* start server */
-  // server.listen(config.port || process.env.PORT, config.local, () => {
-  //   console.log('%s listening at %s', server.name, server.url)
-  // })
-  /*
-   * for heroku 
-   */
-  server.listen(process.env.PORT, function() {
+  server.listen(config.port || process.env.PORT, config.local, () => {
     console.log('%s listening at %s', server.name, server.url)
   })
 })()

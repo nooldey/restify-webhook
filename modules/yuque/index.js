@@ -2,11 +2,9 @@
  * @Author: nooldey <nooldey@gmail.com> 
  * @Date: 2019-03-28 18:06:34 
  * @Last Modified by: nooldey
- * @Last Modified time: 2019-03-28 18:07:09
+ * @Last Modified time: 2019-03-29 13:57:11
  * 接收语雀文档更新推送，并触发travis更新，日志记录
  */
-
-const Record = require('../../actions/record');
 const TrickTravis = require('../travis-ci/index');
 
 module.exports = function(req, res, next){
@@ -17,7 +15,6 @@ module.exports = function(req, res, next){
     res.end('0');
     next()
   } else {
-    Record(req,res);
     TrickTravis(req, res, next);
   }
 }

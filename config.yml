@@ -1,13 +1,7 @@
 # API配置部分
 ## API服务名称
-serverName: 'WebhookServer'
+serverName: 'webhooks'
 ## API运行地址
 local: '127.0.0.1'
 ## API端口
 port: 2333
-## 跨域白名单
-access:
-  - zhuweisheng.com.cn
-  - api.zhuweisheng.com.cn
-  - 127.0.0.1
-  - localhost
