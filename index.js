@@ -3,7 +3,7 @@
  * @Author-Email: <nooldey@gmail.com>
  * @Date: 2018-05-14 08:54:43 
  * @Last Modified by: nooldey
- * @Last Modified time: 2019-03-29 14:18:37
+ * @Last Modified time: 2019-03-29 14:58:12
  * @Description: webhook主文件
  */
 
@@ -42,9 +42,22 @@ function crossOrigin(req, res, next) {
 
   server.post('/webhook/yuque', Modules.yuque);
 
-  server.get('/log', Modules.logs);
+  server.get('/log', function(req, res, next){
+    fs.readFile(PATH.resolve(__dirname + './log/req.log'), function (err, data) {
+      if (err) {
+        res.writeHead(500);
+        res.end(JSON.stringify(err));
+        next();
+        return;
+      } else {
+        res.writeHead(200);
+        res.end(data);
+        next();
+      }
+    });
+  });
 
-  server.get('/tongji.png', Modules.tongji);
+  server.get('/tongji.jpg', Modules.tongji);
 
   server.get('/', function (req, res, next) {
     res.writeHead(200)
