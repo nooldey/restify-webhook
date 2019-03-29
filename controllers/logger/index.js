@@ -1,3 +1,10 @@
+/** 
+ * @swagger 
+ * tags: 
+ *   - name: status 
+ *     description: Is the service in a good state 
+ */ 
+
 const fs = require('fs')
 const PATH = require('path')
 

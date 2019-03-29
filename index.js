@@ -3,7 +3,7 @@
  * @Author-Email: <nooldey@gmail.com>
  * @Date: 2018-05-14 08:54:43 
  * @Last Modified by: nooldey
- * @Last Modified time: 2019-03-29 15:18:53
+ * @Last Modified time: 2019-03-29 17:58:10
  * @Description: webhook主文件
  */
 
@@ -12,7 +12,8 @@ const fs = require('fs')
 const PATH = require('path')
 const YAML = require('yamljs')
 const config = YAML.parse(fs.readFileSync(PATH.resolve(__dirname, './config.yml')).toString())
-const Modules = require('./modules')
+const Controllers = require('./controllers')
+const SwaggerDoc = require('./swagger');
 
 /* custom handlers */
 function crossOrigin(req, res, next) {
@@ -37,23 +38,13 @@ function crossOrigin(req, res, next) {
   server.use(restify.plugins.gzipResponse())
 
   /* routers */
-  server.post('/webhook/bitbucket', Modules.bitbucket);
+  server.post('/webhook/bitbucket', Controllers.bitbucket);
 
-  server.post('/webhook/yuque', Modules.yuque);
+  server.post('/webhook/yuque', Controllers.yuque);
 
-  server.get('/log', function (req, res, next) {
-    fs.readFile(PATH.resolve(__dirname + '/log/req.log'), 'utf8', function (err, data) {
-      if (err) {
-        res.writeHead(500);
-        res.end(JSON.stringify(err));
-      } else {
-        res.writeHead(200);
-        res.end(data);
-      }
-    });
-  });
+  server.get('/log', Controllers.logger);
 
-  server.get('/tongji.jpg', Modules.tongji);
+  server.get('/tongji.jpg', Controllers.tongji);
 
   server.get('/', function (req, res, next) {
     res.writeHead(200)
@@ -64,5 +55,7 @@ function crossOrigin(req, res, next) {
   /* start server */
   server.listen(config.port || process.env.PORT, config.local, function () {
     console.log('%s listening at %s', server.name, server.url)
+    /* 运行swagger文档 */
+    SwaggerDoc(server);
   })
 })()
