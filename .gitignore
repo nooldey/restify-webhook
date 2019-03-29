@@ -58,3 +58,5 @@ typings/
 # idea vscode
 .idea
 .vscode
+
+*.log
