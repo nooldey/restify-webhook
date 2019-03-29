@@ -8,9 +8,6 @@
   "scripts": {
     "start": "node index.js > ./log/req.log --watch"
   },
-  "engines": {
-    "node": "10.x"
-  },
   "dependencies": {
     "restify": "^8.1.1",
     "restify-errors": "^6.0.0",
