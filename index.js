@@ -3,17 +3,19 @@
  * @Author-Email: <nooldey@gmail.com>
  * @Date: 2018-05-14 08:54:43 
  * @Last Modified by: nooldey
- * @Last Modified time: 2019-03-29 17:58:10
+ * @Last Modified time: 2019-04-02 16:49:13
  * @Description: webhook主文件
  */
 
-const restify = require('restify')
-const fs = require('fs')
-const PATH = require('path')
-const YAML = require('yamljs')
-const config = YAML.parse(fs.readFileSync(PATH.resolve(__dirname, './config.yml')).toString())
-const Controllers = require('./controllers')
-const SwaggerDoc = require('./swagger');
+const restify = require('restify');
+const fs = require('fs');
+const PATH = require('path');
+const YAML = require('yamljs');
+const config = YAML.parse(fs.readFileSync(PATH.resolve(__dirname, './config.yml')).toString());
+const ApiDoc = require('./swagger');
+
+const CommonRoute = require('./routes/common');
+const WebhookRoute = require('./routes/webhooks');
 
 /* custom handlers */
 function crossOrigin(req, res, next) {
@@ -38,13 +40,9 @@ function crossOrigin(req, res, next) {
   server.use(restify.plugins.gzipResponse())
 
   /* routers */
-  server.post('/webhook/bitbucket', Controllers.bitbucket);
-
-  server.post('/webhook/yuque', Controllers.yuque);
-
-  server.get('/log', Controllers.logger);
-
-  server.get('/tongji.jpg', Controllers.tongji);
+  CommonRoute.applyRoutes(server);
+  
+  WebhookRoute.applyRoutes(server,'/webhook');
 
   server.get('/', function (req, res, next) {
     res.writeHead(200)
@@ -55,7 +53,7 @@ function crossOrigin(req, res, next) {
   /* start server */
   server.listen(config.port || process.env.PORT, config.local, function () {
     console.log('%s listening at %s', server.name, server.url)
-    /* 运行swagger文档 */
-    SwaggerDoc(server);
+    /* 运行api文档 */
+    ApiDoc(server);
   })
 })()

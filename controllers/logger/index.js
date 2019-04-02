@@ -6,10 +6,10 @@
  */ 
 
 const fs = require('fs')
-const PATH = require('path')
+const Path = require('path')
 
 module.exports = function(req, res, next){
-  fs.readFile(PATH.resolve(__dirname + '/log/req.log'), function (err, data) {
+  fs.readFile(Path.resolve(__dirname, '../../log/req.log'), function (err, data) {
     if (err) {
       res.writeHead(500);
       res.end(JSON.stringify(err));
